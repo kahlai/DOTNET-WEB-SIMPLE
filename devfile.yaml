@@ -1,17 +1,18 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
   name: dotnet
 components:
   - name: tools
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.7
-      memoryLimit: 2Gi
+      image: quay.io/vsvydenk/dotnet:7.0
+      memoryLimit: 6Gi
       mountSources: true
+      args: ['tail', '-f', '/dev/null']
       endpoints:
-        - exposure: public
-          name: 'hello-endpoint'
-          protocol: http
+        - name: 'hello-endpoint'
           targetPort: 5032
+        - name: 'debug-endpoint'
+          targetPort: 5000
       volumeMounts:
         - name: nuget
           path: /home/user/.nuget
@@ -21,6 +22,7 @@ components:
 commands:
   - id: 1-update-dependencies
     exec:
+      label: Update dependencies
       component: tools
       workingDir: ${PROJECTS_ROOT}/dotnet-web-simple
       commandLine: "dotnet restore"
@@ -28,6 +30,7 @@ commands:
         kind: build
   - id: 2-build
     exec:
+      label: Build
       component: tools
       workingDir: ${PROJECTS_ROOT}/dotnet-web-simple
       commandLine: "dotnet build"
@@ -35,6 +38,7 @@ commands:
         kind: build
   - id: 3-run
     exec:
+      label: Run
       component: tools
       workingDir: ${PROJECTS_ROOT}/dotnet-web-simple
       commandLine: "dotnet run"
