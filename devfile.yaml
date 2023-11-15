@@ -4,7 +4,8 @@ metadata:
 components:
   - name: tools
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.7
+      # image: registry.redhat.io/devspaces/udi-rhel8:3.7
+      image: quay.io/vsvydenk/devspaces-udi:pr-525
       memoryLimit: 2Gi
       mountSources: true
       endpoints:
