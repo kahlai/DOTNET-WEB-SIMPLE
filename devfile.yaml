@@ -4,7 +4,7 @@ metadata:
 components:
   - name: tools
     container:
-      image: quay.io/vsvydenk/dotnet:7.0-UBI-9
+      image: quay.io/vsvydenk/dotnet:next
       memoryLimit: 6Gi
       mountSources: true
       args: ['tail', '-f', '/dev/null']
