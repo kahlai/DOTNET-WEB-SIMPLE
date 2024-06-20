@@ -4,7 +4,8 @@ metadata:
 components:
   - name: tools
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.7
+      #image: registry.redhat.io/devspaces/udi-rhel8:3.7
+      image: quay.io/kahlai/dotnet-devspaces-ws:7.0
       memoryLimit: 2Gi
       mountSources: true
       endpoints:
@@ -18,7 +19,17 @@ components:
   - name: nuget
     volume:
       size: 1G
+events:
+  postStart:
+    - 0-update-ca-trust
 commands:
+  - id: 0-update-ca-trust
+    exec:
+      component: tools
+      workingDir: ${PROJECTS_ROOT}/dotnet-web-simple
+      commandLine: "update-ca-trust"
+      group:
+        kind: build
   - id: 1-update-dependencies
     exec:
       component: tools
