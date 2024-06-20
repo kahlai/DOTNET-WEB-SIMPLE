@@ -6,6 +6,9 @@ components:
     container:
       #image: registry.redhat.io/devspaces/udi-rhel8:3.7
       image: quay.io/kahlai/dotnet-devspaces-ws:7.0
+      env:
+        - name: DOTNET_URLS
+          values: http://0.0.0.0:8080
       args: ['tail', '-f', '/dev/null']
       memoryLimit: 2Gi
       mountSources: true
