@@ -5,7 +5,7 @@ components:
   - name: tools
     container:
       #image: registry.redhat.io/devspaces/udi-rhel8:3.7
-      image: quay.io/kahlai/dotnet-devspaces-ws:8.0
+      image: quay.io/kahlai/dotnet-devspaces-ws:8.0a
       env:
         - name: DOTNET_URLS
           value: http://0.0.0.0:8080
@@ -31,7 +31,7 @@ commands:
     exec:
       component: tools
       workingDir: ${PROJECTS_ROOT}/dotnet-web-simple
-      commandLine: "update-ca-trust"
+      commandLine: "update-ca-certificates"
       group:
         kind: build
   - id: 1-update-dependencies
